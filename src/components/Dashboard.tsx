@@ -24,13 +24,13 @@ const Dashboard = () => {
               </Link>
             </li>
             <li>
-              <Link to="#" className="hover:text-green-600">
+              <Link to="/my-list" className="hover:text-green-600">
                 My List
               </Link>
             </li>
             <li>
-              <Link to="#" className="hover:text-green-600">
-                About
+              <Link to="/calories-tracker" className="hover:text-green-600">
+                Calorie Tracker
               </Link>
             </li>
           </ul>

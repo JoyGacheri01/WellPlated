@@ -1,6 +1,33 @@
 import React from 'react';
 
+interface RecipesCardProps {
+    title: string;
+    description: string;
+    image: string;
+    calories: number;
+}
+
+//React.FC denotes a functional component
+const RecipeCard: React.FC<RecipesCardProps> = ({ title, description, image, calories}) => {
+    return (
+        <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+            <img src={image} alt={title} className="w-full h-40 object-cover" />
+            <div className="p-4">
+                <h2 className="text-lg font-semibold text-gray-800 mb-2">{title}</h2>
+                <p className="text-sm text-gray-600">{description}</p>
+                <p className="text-orange-500 mt-2 text-sm font-medium">~ {calories} kcal</p>
+            </div>
+        </div>
+    );
+};
+
 const Recipes: React.FC = () => {
+    const recipes = [
+        { id: 1, title: 'Quinoa Salad', description: 'A refreshing and healthy quinoa salad.', image: 'https://source.unsplash.com/300x200/?food,quinoa', calories: 320 },
+        { id: 2, title: 'Grilled Chicken', description: 'Delicious grilled chicken with herbs.', image: 'https://source.unsplash.com/300x200/?food,chicken', calories: 450 },
+        { id: 3, title: 'Veggie Stir Fry', description: 'A quick and easy vegetable stir fry.', image: 'https://source.unsplash.com/300x200/?food,veggies', calories: 280 },
+        { id: 4, title: 'Avocado Toast', description: 'Healthy avocado toast with whole grain bread.', image: 'https://source.unsplash.com/300x200/?food,avocado', calories: 350 },
+    ]
     return (
         <div className="min-h-screen flex bg-gray-50 px-6 py-10">
             <div className="text-center mb-10">
@@ -14,29 +41,31 @@ const Recipes: React.FC = () => {
 
              </div>
              </div>
-            <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                 {/* Example Recipe Card */}
-                 {[1, 2, 3, 4, 5, 6].map((id) => (
-                <div key={id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                <div className="p-8 bg-gray-50 min-h-screen">
+      <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
+        🍽️ Explore Delicious Recipes
+      </h1>
 
-                 <img src={`https://source.unsplash.com/300x200/?food,recipe,${id}`} alt="Recipe" className="w-full h-40 object-cover"/>
-                 <div className="p-4">
-                   <h2 className="text-lg font-semibold text-gray-800 mb-2">Recipe {id} </h2>
-                   <p className="text-sm text-gray-600">
-                   A quick and healthy dish for your daily meals.
-              </p>
-              <p className="text-orange-500 mt-2 text-sm font-medium">
-                ~ 350 kcal
-              </p>
-                </div>
-          </div>
+      {/* Recipe Cards Grid */}
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {recipes.map((recipe) => (
+          <RecipeCard
+            key={recipe.id}
+            title={recipe.title}
+            description={recipe.description}
+            image={recipe.image}
+            calories={recipe.calories}
+          />
         ))}
+        </div>
+        </div>
+
       </div>
 
     
 
 
-        </div>
+
     );
 };
 
