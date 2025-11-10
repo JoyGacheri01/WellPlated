@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,24 +14,24 @@ const Dashboard = () => {
           {/* Desktop Menu */}
           <ul className="hidden mdflex space-x-6 text-gray-700 font-medium">
             <li>
-              <a href="#" className="hover:text-green-600">
+              <Link to="/" className="hover:text-green-600">
                 Home
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:text-green-600">
+              <Link to="/recipes" className="hover:text-green-600">
                 Recipies
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:text-green-600">
+              <Link to="#" className="hover:text-green-600">
                 My List
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:text-green-600">
+              <Link to="#" className="hover:text-green-600">
                 About
-              </a>
+              </Link>
             </li>
           </ul>
           {/* Mobile Menu Button */}
