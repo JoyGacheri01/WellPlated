@@ -5,6 +5,7 @@ import Recipes from "./components/Recipes";
 import Caloriestracker from "./components/Caloriestracker";
 import MyList from "./components/MyList";
 import RecipeDetails from "./components/RecipeDetails";
+import CalorieCalc from "./components/CalorieCalc";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/calories-tracker" element={<Caloriestracker />} />
         <Route path="/my-list" element={<MyList />} />
         <Route path="/recipes/:id" element={<RecipeDetails />} />
+        <Route path="/calorie-calculator" element={<CalorieCalc />} />
       </Routes>
     </Router>
   );
