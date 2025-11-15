@@ -32,6 +32,11 @@ const Navbar = () => {
                 Calorie Tracker
               </Link>
             </li>
+            <li>
+              <Link to="/add-recipe" className="hover:text-green-600">
+                Add Recipe
+              </Link>
+            </li>
           </ul>
 
           {/* Mobile Menu Button */}
@@ -67,6 +72,11 @@ const Navbar = () => {
                 className="block hover:text-green-600"
               >
                 Calorie Tracker
+              </Link>
+            </li>
+            <li>
+              <Link to="/add-recipe" className="block hover:text-green-600">
+                Add Recipe
               </Link>
             </li>
           </ul>
