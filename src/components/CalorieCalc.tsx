@@ -1,5 +1,19 @@
 import { useState } from "react";
 
+const foodSuggestions = [
+  "banana",
+  "ugali",
+  "rice",
+  "chapati",
+  "egg",
+  "milk",
+  "beef",
+  "chicken",
+  "fish",
+  "potato",
+  "beans",
+];
+
 const foodData: { name: string; caloriesPer100g: number }[] = [
   { name: "banana", caloriesPer100g: 89 },
   { name: "ugali", caloriesPer100g: 110 },
@@ -15,6 +29,8 @@ export default function CalorieCalc() {
   const [amount, setAmount] = useState("");
   const [result, setResult] = useState<number | null>(null);
   const [error, setError] = useState("");
+  const [filteredFoods, setFilteredFoods] = useState<string[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
   const calculateCalories = () => {
     setError("");
@@ -51,17 +67,47 @@ export default function CalorieCalc() {
           type="text"
           id="food"
           value={food}
-          onChange={(e) => setFood(e.target.value)}
           className="w-full border rounded p-2"
           placeholder="e.g. banana"
+          onChange={(e) => {
+            const value = e.target.value;
+            setFood(value);
+            if (value.length > 0) {
+              const filtered = foodSuggestions.filter((item) =>
+                item.toLowerCase().includes(value.toLowerCase())
+              );
+              setFilteredFoods(filtered);
+              setShowSuggestions(true);
+            } else {
+              setShowSuggestions(false);
+            }
+          }}
         />
       </div>
+      {showSuggestions && filteredFoods.length > 0 && (
+        <ul className="border border-gray-300 rounded mt-1 max-h-40 overflow-y-auto bg-white">
+          {filteredFoods.map((item) => (
+            <li
+              key={item}
+              className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
+              onClick={() => {
+                setFood(item);
+                setShowSuggestions(false);
+              }}
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
+      )}
       <div className="mt-4">
         <label
           className="block text-gray-700 text-sm font-bold mb-2"
           htmlFor="amount"
-        />
+        >
           Amount (grams)
+        </label>
+
         <input
           type="number"
           id="amount"
@@ -70,7 +116,6 @@ export default function CalorieCalc() {
           className="w-full border rounded p-2"
           placeholder="e.g. 100"
         />
-        
       </div>
       <button
         onClick={calculateCalories}

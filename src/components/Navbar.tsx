@@ -28,7 +28,7 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link to="/calories-tracker" className="hover:text-green-600">
+              <Link to="/calories-calc" className="hover:text-green-600">
                 Calorie Tracker
               </Link>
             </li>
