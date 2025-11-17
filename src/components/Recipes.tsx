@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useRecipes } from "./RecipeContext";
 
 interface RecipesCardProps {
   id: number;
@@ -50,36 +51,7 @@ const Recipes: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
   const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
-  const recipes = [
-    {
-      id: 1,
-      title: "Quinoa Salad",
-      description: "A refreshing and healthy quinoa salad.",
-      image: "https://source.unsplash.com/300x200/?food,quinoa",
-      calories: 320,
-    },
-    {
-      id: 2,
-      title: "Grilled Chicken",
-      description: "Delicious grilled chicken with herbs.",
-      image: "https://source.unsplash.com/300x200/?food,chicken",
-      calories: 450,
-    },
-    {
-      id: 3,
-      title: "Veggie Stir Fry",
-      description: "A quick and easy vegetable stir fry.",
-      image: "https://source.unsplash.com/300x200/?food,veggies",
-      calories: 280,
-    },
-    {
-      id: 4,
-      title: "Avocado Toast",
-      description: "Healthy avocado toast with whole grain bread.",
-      image: "https://source.unsplash.com/300x200/?food,avocado",
-      calories: 350,
-    },
-  ];
+  const { recipes } = useRecipes();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value;

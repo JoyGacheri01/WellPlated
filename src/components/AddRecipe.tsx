@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { useRecipes } from "./RecipeContext";
 
 export default function AddRecipe() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [ingredients, setIngredients] = useState("");
   const [image, setImage] = useState("");
+  const [calories, setCalories] = useState<number>(0);
+  const { addRecipe } = useRecipes();
   return (
     <div className="space-y-6">
       <div className="space-y-4 max-w-md mx-auto mt-10">
@@ -46,6 +49,16 @@ export default function AddRecipe() {
           placeholder="Enter Image URL"
         />
       </div>
+      <div className="space-y-4 max-w-md mx-auto mt-10">
+        <label className="block font-medium mb-1">Calories</label>
+        <input
+          type="number"
+          value={calories}
+          onChange={(e) => setCalories(Number(e.target.value))}
+          className="w-full border border-gray-300 p-2 rounded"
+          placeholder="Enter Calories"
+        />
+      </div>
       {title || description || ingredients || image ? (
         <div className="mt-6 max-w-md mx-auto p-4 border border-green-300 rounded bg-green-50">
           {image && (
@@ -65,7 +78,30 @@ export default function AddRecipe() {
 
       <button
         className="mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 block mx-auto"
-        onClick={() => alert("Recipe saved!")}
+        onClick={() => {
+          if (title && description && ingredients && image && calories > 0) {
+            const newRecipe = {
+              id: Date.now(), // Simple ID generation
+              title,
+              description,
+              ingredients,
+              image,
+              calories,
+            };
+            addRecipe(newRecipe);
+            // Reset form
+            setTitle("");
+            setDescription("");
+            setIngredients("");
+            setImage("");
+            setCalories(0);
+            alert("Recipe added successfully!");
+          } else {
+            alert(
+              "Please fill in all fields and ensure calories is greater than 0."
+            );
+          }
+        }}
       >
         Save Recipe
       </button>
