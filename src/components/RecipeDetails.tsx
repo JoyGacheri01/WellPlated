@@ -1,38 +1,11 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
+import { useRecipes } from "./RecipeContext";
 
 const RecipeDetails: React.FC = () => {
   // useParams helps get the id from the URL (like /recipes/1)
   const { id } = useParams<{ id: string }>();
-
-  // Temporary mock data (later we’ll connect it dynamically)
-  const recipes = [
-    {
-      id: 1,
-      title: "Quinoa Salad",
-      description: "A refreshing and healthy quinoa salad.",
-      image: "https://source.unsplash.com/400x300/?food,quinoa",
-      calories: 320,
-      ingredients: [
-        "Quinoa",
-        "Tomatoes",
-        "Cucumber",
-        "Olive Oil",
-        "Lemon Juice",
-      ],
-      instructions:
-        "Cook quinoa, chop veggies, and mix all ingredients together.",
-    },
-    {
-      id: 2,
-      title: "Grilled Chicken",
-      description: "Delicious grilled chicken with herbs.",
-      image: "https://source.unsplash.com/400x300/?food,chicken",
-      calories: 450,
-      ingredients: ["Chicken Breast", "Garlic", "Olive Oil", "Rosemary"],
-      instructions: "Marinate chicken and grill until fully cooked.",
-    },
-  ];
+  const { recipes, toggleFavorite } = useRecipes();
 
   // Find the recipe that matches the id
   const recipe = recipes.find((r) => r.id === Number(id));
@@ -74,6 +47,14 @@ const RecipeDetails: React.FC = () => {
 
         <h2 className="text-xl font-semibold mb-2">Instructions:</h2>
         <p className="text-gray-700">{recipe.instructions}</p>
+        <button
+          onClick={() => toggleFavorite(recipe.id)}
+          className={`px-3 py-1 rounded mt-4 ${
+            recipe.isFavorite ? "bg-red-500 text-white" : "bg-gray-200"
+          }`}
+        >
+          {recipe.isFavorite ? "Unfavorite" : "Favorite"}
+        </button>
       </div>
     </div>
   );

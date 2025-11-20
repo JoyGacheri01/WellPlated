@@ -9,6 +9,8 @@ interface RecipesCardProps {
   description: string;
   image: string;
   calories: number;
+  isFavorite?: boolean;
+  toggleFavorite: (id: number) => void;
 }
 
 const recipeSuggestions = [
@@ -30,10 +32,12 @@ const RecipeCard: React.FC<RecipesCardProps> = ({
   description,
   image,
   calories,
+  isFavorite,
+  toggleFavorite,
 }) => {
   return (
     <Link to={`/recipes/${id}`} className="block">
-      <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+      <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 relative">
         <img src={image} alt={title} className="w-full h-40 object-cover" />
         <div className="p-4">
           <h2 className="text-lg font-semibold text-gray-800 mb-2">{title}</h2>
@@ -41,6 +45,15 @@ const RecipeCard: React.FC<RecipesCardProps> = ({
           <p className="text-orange-500 mt-2 text-sm font-medium">
             ~ {calories} kcal
           </p>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleFavorite(id);
+            }}
+            className="absolute top-3 right-3 text-xl bg-white rounded-full p-1 shadow-md hover:bg-gray-100"
+          >
+            {isFavorite ? "❤️" : "🤍"}
+          </button>
         </div>
       </div>
     </Link>
@@ -51,7 +64,7 @@ const Recipes: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
   const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
-  const { recipes } = useRecipes();
+  const { recipes, toggleFavorite } = useRecipes();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value;
@@ -128,6 +141,8 @@ const Recipes: React.FC = () => {
             description={recipe.description}
             image={recipe.image}
             calories={recipe.calories}
+            isFavorite={recipe.isFavorite}
+            toggleFavorite={toggleFavorite}
           />
         ))}
       </div>

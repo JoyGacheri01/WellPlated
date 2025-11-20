@@ -72,6 +72,7 @@ export default function AddRecipe() {
               {description || "Recipe Description...."}
             </p>
             {ingredients && <p className="text-gray-700">{ingredients}</p>}
+            {instructions && <p className="text-gray-700">{instructions}</p>}
           </div>
         </div>
       ) : null}
@@ -87,6 +88,7 @@ export default function AddRecipe() {
               ingredients,
               image,
               calories,
+              isFavorite: false,
             };
             addRecipe(newRecipe);
             // Reset form
