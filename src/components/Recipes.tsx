@@ -13,6 +13,7 @@ interface RecipesCardProps {
   toggleFavorite: (id: number) => void;
 }
 
+
 const recipeSuggestions = [
   "githeri",
   "Ugali & Sukuma Wiki",
